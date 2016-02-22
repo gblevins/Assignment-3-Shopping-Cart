@@ -83,46 +83,151 @@ public class A3Driver
 	public static void process(String input, ArrayList<Item> shoppingCart)
 	{
 		String operands[] = input.split("\\s+");
-		if (operands[0].equals("insert"))
+		if (operands[0].equalsIgnoreCase("insert"))
 		{
 			insert(input, shoppingCart);
 		}
-		else if (operands[0].equals("search"))
+		else if (operands[0].equalsIgnoreCase("search"))
 		{
 			search(input, shoppingCart);
 		}
-		else if (operands[0].equals("delete"))
+		else if (operands[0].equalsIgnoreCase("delete"))
 		{
 			delete(input, shoppingCart);
 		}
-		else if (operands[0].equals("update"))
+		else if (operands[0].equalsIgnoreCase("update"))
 		{
 			update(input, shoppingCart);
 		}
-		else if (operands[0].equals("print"))
+		else if (operands[0].equalsIgnoreCase("print"))
 		{
 			print(input, shoppingCart);
 		}
 	}
 	
+	/******************************************************************************
+	* Method Name: print			                                              *
+	* Purpose: print the contents of the shopping cart in order by name,          *
+	* 		   showing all attribute values for each object as well as the        *
+	* 		   total charges for each. This is followed by the total charges      *
+	* 		   for entire the shopping cart. Output of the shopping cart should   *
+	*		   be to the standard output stream (screen) and should be            *
+	*		   appropriately formatted and labeled for readability. This is       *
+	*		   not a complete shipping list, which would be handled separately    *
+	*		   by a different program.                                            *
+	* Returns: None                                                               *
+	******************************************************************************/
+	// use an iterator? can remove from iterator and will remove from list (test to make sure)
+	// check if valid state? create an array of all the state abbreviations and then use does contain method
 	public static void print(String input, ArrayList<Item> shoppingCart)
 	{
-		
+		Iterator<Item> i = shoppingCart.iterator();
+		float totalPrice = 0;
+		while (i.hasNext()) 
+		{
+			Item temp = i.next();
+			float totalItemPrice = temp.calculatePrice();
+			totalPrice = totalPrice + totalItemPrice;
+			temp.printItemAttributes();
+			System.out.println("The total price for this item is: " + Float.toString(totalItemPrice));
+		}
+		System.out.println("The total price for the shopping cart is: " + Float.toString(totalPrice));
 	}
 
+	/******************************************************************************
+	* Method Name: update			                                              *
+	* Purpose: Searches for item named "input name" in the cart and updates the   *
+	*          first item with the right name to a new specified quantity.        *
+	* Returns: None                                                               *
+	******************************************************************************/
 	public static void update(String input, ArrayList<Item> shoppingCart)
 	{
-		
+		String operands[] = input.split("//s+");
+		String name = new String(operands[1]);
+		int newQuantity = Integer.parseInt(operands[2]);
+		Iterator<Item> i = shoppingCart.iterator();
+		boolean found = false;
+		while (i.hasNext()) 
+		{
+			Item temp = i.next();
+			String tempName = temp.getName();
+			if (name.equals(tempName))
+			{
+				temp.setQuantity(newQuantity);
+				found = true;
+				break
+			}
+		}
+		if (found == false)
+		{
+			System.out.println("No items named " + name + " found.");
+		}
+		else 
+		{
+			System.out.println(name + " updated to quantity " + Integer.toString(newQuantity));
+		}
 	}
 
+	/******************************************************************************
+	* Method Name: delete			                                              *
+	* Purpose: Searches for items named "input name" in the cart and deletes all  *
+	* 		   of them. This is case sensitive.                                   *
+	* Returns: None                                                               *
+	******************************************************************************/
 	public static void delete(String input, ArrayList<Item> shoppingCart)
 	{
-		
+		String operands[] = input.split("//s+");
+		String name = new String(operands[1]);
+		Iterator<Item> i = shoppingCart.iterator();
+		int quantity = 0;
+		while (i.hasNext()) 
+		{
+			Item temp = i.next();
+			String tempName = temp.getName();
+			if (name.equals(tempName))
+			{
+				quantity = quantity + temp.getQuantity();
+				i.remove();
+			}
+		}
+		if (quantity == 0)
+		{
+			System.out.println("No items named " + name + " found.");
+		}
+		else 
+		{
+			System.out.println(Integer.toString(quantity) + " items named " + name + " found and deleted.");
+		}
 	}
 
+	/******************************************************************************
+	* Method Name: search			                                              *
+	* Purpose: Searches for an item name in the cart. This is case sensitive.     *
+	* Returns: None                                                               *
+	******************************************************************************/
 	public static void search(String input, ArrayList<Item> shoppingCart)
 	{
-		
+		String operands[] = input.split("//s+");
+		String name = new String(operands[1]);
+		Iterator<Item> i = shoppingCart.iterator();
+		int quantity = 0;
+		while (i.hasNext()) 
+		{
+			Item temp = i.next();
+			String tempName = temp.getName();
+			if (name.equals(tempName))
+			{
+				quantity = quantity + temp.getQuantity();
+			}
+		}
+		if (quantity == 0)
+		{
+			System.out.println("No items named " + name + " found.");
+		}
+		else 
+		{
+			System.out.println(Integer.toString(quantity) + " items named " + name + " found.");
+		}
 	}
 
 	/******************************************************************************
@@ -135,43 +240,115 @@ public class A3Driver
 	{
 		String operands[] = input.split("//s+");
 		String category = new String(operands[1]);
+		String name = new String(operands[2]); // items can have the same name and different price
+		float price = Float.parseFloat(operands[3]);
+		price = Math.round(price*100)/100;
+		int quantity = Integer.parseInt(operands[4]);
+		int weight = Integer.parseInt(operands[5]);
 		if (shoppingCart.isEmpty() == true)
 		{
-			if (category.equals("groceries") == true)
+			if (category.equalsIgnoreCase("groceries") == true)
 			{
 				boolean isPerishable = false; 
-				if (operands[6].equals("P") == true)
+				if (operands[6].equalsIgnoreCase("P") == true)
 				{
 					isPerishable = true;
 				}
-				shoppingCart.add(new Item(operands[2], Float.parseFloat(operands[3]), Integer.parseInt(operands[4]), Integer.parseInt(operands[5]), isPerishable)));
+				shoppingCart.add(new Item(name, price, quantity, weight, isPerishable)));
 			}
-			if (category.equals("electronics") == true)
+			else if (category.equalsIgnoreCase("electronics") == true)
 			{
-				
+				String state = new String(operands[7]);
+				boolean isFragile = false; 
+				if (operands[6].equalsIgnoreCase("F") == true)
+				{
+					isFragile = true;
+				}
+				shoppingCart.add(new Item(name, price, quantity, weight, isFragile, state)));
 			}
-			if (category.equals("clothing") == true)
+			else if (category.equalsIgnoreCase("clothing") == true)
 			{
-				
+				shoppingCart.add(new Item(name, price, quantity, weight)));
+			}
+		}
+		else
+		{
+			int index = 0;
+			int size = shoppingCart.size();
+			while (index < size)
+			{
+				Item temp = shoppingCart.get(index);
+				String tempName = temp.getName;
+				int result = name.compareTo(tempName);
+				if (result < 0)	// item should be placed before
+				{
+					break;
+				}
+				index = index + 1;
+			}
+			if (index == size)
+			{
+				if (category.equalsIgnoreCase("groceries") == true)
+				{
+					boolean isPerishable = false; 
+					if (operands[6].equalsIgnoreCase("P") == true)
+					{
+						isPerishable = true;
+					}
+					shoppingCart.add(new Item(name, price, quantity, weight, isPerishable)));
+				}
+				else if (category.equalsIgnoreCase("electronics") == true)
+				{
+					String state = new String(operands[7]);
+					boolean isFragile = false; 
+					if (operands[6].equalsIgnoreCase("F") == true)
+					{
+						isFragile = true;
+					}
+					shoppingCart.add(new Item(name, price, quantity, weight, isFragile, state)));
+				}
+				else if (category.equalsIgnoreCase("clothing") == true)
+				{
+					shoppingCart.add(new Item(name, price, quantity, weight)));
+				}
+			}
+			else
+			{
+				if (category.equalsIgnoreCase("groceries") == true)
+				{
+					boolean isPerishable = false; 
+					if (operands[6].equalsIgnoreCase("P") == true)
+					{
+						isPerishable = true;
+					}
+					shoppingCart.add(index, new Item(name, price, quantity, weight, isPerishable)));
+				}
+				else if (category.equalsIgnoreCase("electronics") == true)
+				{
+					String state = new String(operands[7]);
+					boolean isFragile = false; 
+					if (operands[6].equalsIgnoreCase("F") == true)
+					{
+						isFragile = true;
+					}
+					shoppingCart.add(index, new Item(name, price, quantity, weight, isFragile, state)));
+				}
+				else if (category.equalsIgnoreCase("clothing") == true)
+				{
+					shoppingCart.add(index, new Item(name, price, quantity, weight)));
+				}
 			}
 		}
 	}
 
-	public void extra(String input)
+	public void extra(String input, ArrayList<Item> shoppingCart)
 	{
-		//Stub for arraylist.
-		ArrayList<Item> shoppingCart = new ArrayList<Item>(); 
-
-		// General code example for how to iterate an array list. You will have to modify this heavily, to suit your needs.
 		Iterator<Item> i = shoppingCart.iterator();
 		while (i.hasNext()) 
 		{
 			Item temp = i.next();
 			temp.calculatePrice(); 
 			temp.printItemAttributes();
-			//This (above) works because of polymorphism: a determination is made at runtime, 
-			//based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
-			// of Grocery, it will invoke the calculatePrice () method defined in Grocery.
 		}
 	}
 }
