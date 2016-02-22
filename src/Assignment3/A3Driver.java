@@ -71,7 +71,184 @@ public class A3Driver
 	******************************************************************************/
 	public static boolean isValidInput(String input)
 	{
-		return true;
+		if (input.isEmpty() == true)
+		{
+			System.out.println("Nothing was entered.");
+			return false;
+		}
+		String operands[] = input.split("//s+");
+		String operation = new String(operands[0]);
+		if (!(operation.equalsIgnoreCase("insert") || operation.equalsIgnoreCase("search") ||
+				operation.equalsIgnoreCase("delete") || operation.equalsIgnoreCase("update") ||
+				operation.equalsIgnoreCase("print")))
+		{
+			System.out.println("Invalid operation.");
+			return false;
+		}
+		
+		if (operation.equalsIgnoreCase("insert"))
+		{
+			if (operands.length == 1)
+			{
+				System.out.println("Incomplete input.");
+				return false;
+			}
+			String category = new String(operands[1]);
+			if (!(category.equalsIgnoreCase("groceries") || category.equalsIgnoreCase("electronics") ||
+					category.equalsIgnoreCase("clothing")))
+			{
+				System.out.println("Invalid category.");
+				return false;
+			}
+			
+			if (category.equalsIgnoreCase("groceries"))
+			{
+				if (operands.length != 7)
+				{
+					System.out.println("Invalid input.");
+					return false;
+				}
+				float price = Float.parseFloat(operands[3]);
+				if (price < 0)
+				{
+					System.out.println("Do not input a negative price.");
+					return false;
+				}
+				int quantity = Integer.parseInt(operands[4]);
+				if (quantity < 0)
+				{
+					System.out.println("Do no input a negative quantity.");
+					return false;
+				}
+				int weight = Integer.parseInt(operands[5]);
+				if (weight < 0)
+				{
+					System.out.println("Do not input a negative weight.");
+					return false;
+				}
+				String isPerishable = new String(operands[6]);
+				if (!(isPerishable.equalsIgnoreCase("P") || isPerishable.equalsIgnoreCase("NP")))
+				{
+					System.out.println("Invalid perishable item verifier.");
+					return false;
+				}
+				return true;
+			}
+			if (category.equalsIgnoreCase("electronics"))
+			{
+				if (operands.length != 8)
+				{
+					System.out.println("Invalid input.");
+					return false;
+				}
+				float price = Float.parseFloat(operands[3]);
+				if (price < 0)
+				{
+					System.out.println("Do not input a negative price.");
+					return false;
+				}
+				int quantity = Integer.parseInt(operands[4]);
+				if (quantity < 0)
+				{
+					System.out.println("Do no input a negative quantity.");
+					return false;
+				}
+				int weight = Integer.parseInt(operands[5]);
+				if (weight < 0)
+				{
+					System.out.println("Do not input a negative weight.");
+					return false;
+				}
+				String isFragile = new String(operands[6]);
+				if (!(isFragile.equalsIgnoreCase("F") || isFragile.equalsIgnoreCase("NF")))
+				{
+					System.out.println("Invalid fragile item verifier.");
+					return false;
+				}
+				String state = new String(operands[7]);
+				final Set<String> STATES = new HashSet<String>(Arrays.asList(
+					     new String[] {"AK", "AL", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
+									 "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS",
+									 "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK",
+									 "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV",
+									 "WI", "WY"}));
+				if (!STATES.contains(state.toUpperCase()))
+				{
+					System.out.println("Invalid state to ship to.");
+					return false;
+				}
+				return true;
+			}
+			if (category.equalsIgnoreCase("clothing"))
+			{
+				if (operands.length != 6)
+				{
+					System.out.println("Invalid input.");
+					return false;
+				}
+				float price = Float.parseFloat(operands[3]);
+				if (price < 0)
+				{
+					System.out.println("Do not input a negative price.");
+					return false;
+				}
+				int quantity = Integer.parseInt(operands[4]);
+				if (quantity < 0)
+				{
+					System.out.println("Do no input a negative quantity.");
+					return false;
+				}
+				int weight = Integer.parseInt(operands[5]);
+				if (weight < 0)
+				{
+					System.out.println("Do not input a negative weight.");
+					return false;
+				}
+				return true;
+			}
+		}
+		if (operation.equalsIgnoreCase("search") || operation.equalsIgnoreCase("delete"))
+		{
+			if (operands.length != 2)
+			{
+				System.out.println("Invalid input.");
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		if (operation.equalsIgnoreCase("update"))
+		{
+			if (operands.length != 3)
+			{
+				System.out.println("Invalid input.");
+				return false;
+			}
+			
+			int newQuantity = Integer.parseInt(operands[2]);
+			if (newQuantity < 0)
+			{
+				System.out.println("Do not input negative quantities.");
+				return false;
+			}
+			return true;
+		}
+		if (operation.equalsIgnoreCase("print"))
+		{
+			if (operands.length == 1)
+			{
+				return true;
+			}
+			else
+			{
+				System.out.println("Invalid input.");
+				return false;
+			}
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************
@@ -180,6 +357,7 @@ public class A3Driver
 		String name = new String(operands[1]);
 		Iterator<Item> i = shoppingCart.iterator();
 		int quantity = 0;
+		boolean itemFound = false;
 		while (i.hasNext()) 
 		{
 			Item temp = i.next();
@@ -187,10 +365,11 @@ public class A3Driver
 			if (name.equals(tempName))
 			{
 				quantity = quantity + temp.getQuantity();
+				itemFound = true;
 				i.remove();
 			}
 		}
-		if (quantity == 0)
+		if (itemFound == false)
 		{
 			System.out.println("No items named " + name + " found.");
 		}
@@ -211,6 +390,7 @@ public class A3Driver
 		String name = new String(operands[1]);
 		Iterator<Item> i = shoppingCart.iterator();
 		int quantity = 0;
+		boolean itemFound = false;
 		while (i.hasNext()) 
 		{
 			Item temp = i.next();
@@ -218,9 +398,10 @@ public class A3Driver
 			if (name.equals(tempName))
 			{
 				quantity = quantity + temp.getQuantity();
+				itemFound = true;
 			}
 		}
-		if (quantity == 0)
+		if (itemFound == false)
 		{
 			System.out.println("No items named " + name + " found.");
 		}
