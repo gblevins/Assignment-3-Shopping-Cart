@@ -1,21 +1,28 @@
 package Assignment3;
 
 public class Grocery extends Item {
-	//variables, constructor here
-	private boolean perishable;
-	
-	
-	//override calculatePrice() if necessary; Implement print methods as necessary	
-	// Only re-implement stuff you cannot get from the superclass (Item)
-	double calculatePrice () 
+// variables
+	protected boolean perishable;
+
+// constructor
+	public Grocery(String itemName, float itemPrice, int itemQuantity, int itemWeight, boolean itemPerishable)
 	{
-		double final_price = 0;
-		// Insert price calculation here
-		double initPrice = price*quantity;
-		double shipping  = 20* weight * quantity;
-		double premShipping = (shipping)*(1.2);
-		double tax = 0;
-		if(persiable)
+		name = itemName;
+		price  = itemPrice;
+		quantity = itemQuantity;
+		weight = itemWeight;
+		perishable = itemPerishable;
+	}
+
+// operational methods, some are overrides of the superclass
+	public float calculatePrice () 
+	{
+		float final_price = 0;
+		float initPrice = price * quantity;
+		float shipping  = 20 * weight * quantity;
+		float premShipping = (float)((shipping)*(1.2));
+		float tax = 0;
+		if(perishable)
 		{
 			final_price = initPrice + shipping + tax;
 		}
@@ -25,19 +32,20 @@ public class Grocery extends Item {
 		}
 		return final_price;
 	}
-}
-void printItemAttributes () 
-{
-	System.out.println("Name: "+name);
-	System.out.println("Price: "+price);
-	System.out.println("Quantity: "+quantity);
-	System.out.println("Weight: "+weight);
-	if(perishable)
+
+	public void printItemAttributes () 
 	{
-		System.out.println("Perishable: Yes");
-	}
-	else
-	{
-		System.out.println("Perishable: No");
+		System.out.println("Name: " + name);
+		System.out.println("Price: " + price);
+		System.out.println("Quantity: " + quantity);
+		System.out.println("Weight: " + weight);
+		if(perishable)
+		{
+			System.out.println("Perishable: Yes");
+		}
+		else
+		{
+			System.out.println("Perishable: No");
+		}
 	}
 }

@@ -2,10 +2,11 @@ package Assignment3;
 
 public class Electronics extends Item 
 {
-	private boolean fragile;
-	private String state;
-	// Variables, constructors etc. here.
-	public void Item(String itemName, double itemPrice, int itemQuantity, double itemWeight, boolean itemFragile, String itemState)
+// variables
+	protected boolean fragile;
+	protected String state;
+// constructor
+	public Electronics(String itemName, float itemPrice, int itemQuantity, int itemWeight, boolean itemFragile, String itemState)
 	{
 		name = itemName;
 		price = itemPrice;
@@ -13,19 +14,19 @@ public class Electronics extends Item
 		weight = itemWeight;
 		fragile = itemFragile;
 		state = itemState;
-	
-	//Implement calculate price/print methods as necessary
-	double calculatePrice () 
+	}
+
+// operational methods, some are overrides of superclass methods
+	public float calculatePrice () 
 	{
-		double final_price = 0;
-		// Insert price calculation here
-		double initPrice = price*quantity;
-		double shipping  = 20* weight * quantity;
-		double premShipping = (shipping)*(1.2);
-		double tax = 0;
+		float final_price = 0;
+		float initPrice = price * quantity;
+		float shipping  = 20 * weight * quantity;
+		float premShipping = (shipping) * (float)(1.2);
+		float tax = 0;
 		if(hasTax(state))
 		{
-			tax = initPrice*0.1;
+			tax = initPrice*(float)0.1;
 		}
 
 		if(fragile)
@@ -39,10 +40,11 @@ public class Electronics extends Item
 		return final_price;
 	}
 	
-	public boolean hasTax(String state)
+	public boolean hasTax(String stateName)
 	{
 		//must check if this is a valid state name
-		if (stateName.equals("TX")||stateName.equals("NM")||stateName.equals("VA")||stateName.equals("AZ")||stateName.equals("AK"))
+		if (stateName.equals("TX") || stateName.equals("NM") || stateName.equals("VA") ||
+				stateName.equals("AZ") || stateName.equals("AK"))
 		{
 			return false;
 		}
@@ -52,12 +54,12 @@ public class Electronics extends Item
 		}
 	}
 	
-	void printItemAttributes () 
+	public void printItemAttributes () 
 	{
-		System.out.println("Name: "+name);
-		System.out.println("Price: "+price);
-		System.out.println("Quantity: "+quantity);
-		System.out.println("Weight: "+weight);
+		System.out.println("Name: " + name);
+		System.out.println("Price: " + price);
+		System.out.println("Quantity: " + quantity);
+		System.out.println("Weight: " + weight);
 		if(fragile)
 		{
 			System.out.println("Fragile: Yes");
@@ -67,5 +69,4 @@ public class Electronics extends Item
 			System.out.println("Fragile: No");
 		}
 	}
-
 }

@@ -2,41 +2,61 @@ package Assignment3;
 
 public class Item 
 {
-	//Declare variables for this class. Think about its type: public, protected or private?
-	private String name;
-	private double price;
-	private int quantity;
-	private double weight;
+// variables
+	protected String name;
+	protected float price;
+	protected int quantity;
+	protected int weight;
 
+// constructors
+	public Item()
+	{
+		name = "";
+		price = 0;
+		quantity = 0;
+		weight = 0;
+	}
 
-// You will need a constructor (Why?). Create it here.
-	public void Item(String itemName, double itemPrice, int itemQuantity, double itemWeight)
+	public Item(String itemName, float itemPrice, int itemQuantity, int itemWeight)
 	{
 		name = itemName;
 		price = itemPrice;
 		quantity = itemQuantity;
 		weight = itemWeight;
-		
 	}
 	
-	double calculatePrice () 
+// operational methods
+	public float calculatePrice () 
 	{
-		double final_price = 0;
-		// Insert price calculation here
-		double initPrice = price*quantity;
-		double shipping  = 20* weight * quantity;
-		double tax = initPrice *0.1;
+		float final_price = 0;
+		float initPrice = price * quantity;
+		float shipping  = 20 * weight * quantity;
+		float tax = (float) (initPrice * 0.1);
 		final_price = initPrice + shipping + tax;
 		return final_price;
 	}
-	
 
-	void printItemAttributes () 
+	public void printItemAttributes () 
 	{
-		System.out.println("Name: "+name);
-		System.out.println("Price: "+price);
-		System.out.println("Quantity: "+quantity);
-		System.out.println("Weight: "+weight);
+		System.out.println("Name: " + name);
+		System.out.println("Price: " + price);
+		System.out.println("Quantity: " + quantity);
+		System.out.println("Weight: " + weight);
 	}
-
+	
+// get and sets
+	public String getName()
+	{
+		return name;
+	}
+	
+	public int getQuantity()
+	{
+		return quantity;
+	}
+	
+	public void setQuantity(int value)
+	{
+		quantity = value;
+	}
 }

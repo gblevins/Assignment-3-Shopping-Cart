@@ -26,9 +26,6 @@ public class A3Driver
 	******************************************************************************/
 	public static void processLinesinFile (String filename)
 	{
-		// Open file; file name specified in args (command line)
-		// Parse input, take appropriate actions.
-		//A3Driver driver = new A3Driver();
 		ArrayList<Item> shoppingCart = new ArrayList<Item>();
 		try 
 		{
@@ -37,16 +34,9 @@ public class A3Driver
 			
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) 
 			{
-				//String pigLatin = translator.translate(s);
-				//System.out.println(pigLatin);
 				if (isValidInput(s) == true)
 				{
-					//driver.process(s, shoppingCart);
 					process(s, shoppingCart);
-				}
-				else
-				{
-					// print that the input was invalid
 				}
 			}
 			reader.close();
@@ -76,7 +66,7 @@ public class A3Driver
 			System.out.println("Nothing was entered.");
 			return false;
 		}
-		String operands[] = input.split("//s+");
+		String operands[] = input.split("\\s+");
 		String operation = new String(operands[0]);
 		if (!(operation.equalsIgnoreCase("insert") || operation.equalsIgnoreCase("search") ||
 				operation.equalsIgnoreCase("delete") || operation.equalsIgnoreCase("update") ||
@@ -294,8 +284,6 @@ public class A3Driver
 	*		   by a different program.                                            *
 	* Returns: None                                                               *
 	******************************************************************************/
-	// use an iterator? can remove from iterator and will remove from list (test to make sure)
-	// check if valid state? create an array of all the state abbreviations and then use does contain method
 	public static void print(String input, ArrayList<Item> shoppingCart)
 	{
 		Iterator<Item> i = shoppingCart.iterator();
@@ -319,12 +307,12 @@ public class A3Driver
 	******************************************************************************/
 	public static void update(String input, ArrayList<Item> shoppingCart)
 	{
-		String operands[] = input.split("//s+");
+		String operands[] = input.split("\\s+");
 		String name = new String(operands[1]);
 		int newQuantity = Integer.parseInt(operands[2]);
 		Iterator<Item> i = shoppingCart.iterator();
 		boolean found = false;
-		while (i.hasNext()) 
+		while (i.hasNext())
 		{
 			Item temp = i.next();
 			String tempName = temp.getName();
@@ -332,7 +320,7 @@ public class A3Driver
 			{
 				temp.setQuantity(newQuantity);
 				found = true;
-				break
+				break;
 			}
 		}
 		if (found == false)
@@ -353,7 +341,7 @@ public class A3Driver
 	******************************************************************************/
 	public static void delete(String input, ArrayList<Item> shoppingCart)
 	{
-		String operands[] = input.split("//s+");
+		String operands[] = input.split("\\s+");
 		String name = new String(operands[1]);
 		Iterator<Item> i = shoppingCart.iterator();
 		int quantity = 0;
@@ -386,7 +374,7 @@ public class A3Driver
 	******************************************************************************/
 	public static void search(String input, ArrayList<Item> shoppingCart)
 	{
-		String operands[] = input.split("//s+");
+		String operands[] = input.split("\\s+");
 		String name = new String(operands[1]);
 		Iterator<Item> i = shoppingCart.iterator();
 		int quantity = 0;
@@ -419,11 +407,12 @@ public class A3Driver
 	******************************************************************************/
 	public static void insert(String input, ArrayList<Item> shoppingCart)
 	{
-		String operands[] = input.split("//s+");
+		String operands[] = input.split("\\s+");
 		String category = new String(operands[1]);
 		String name = new String(operands[2]); // items can have the same name and different price
 		float price = Float.parseFloat(operands[3]);
-		price = Math.round(price*100)/100;
+		int roundPrice = (int) (price * 100);
+		price = (float) roundPrice / 100;
 		int quantity = Integer.parseInt(operands[4]);
 		int weight = Integer.parseInt(operands[5]);
 		if (shoppingCart.isEmpty() == true)
@@ -435,7 +424,7 @@ public class A3Driver
 				{
 					isPerishable = true;
 				}
-				shoppingCart.add(new Item(name, price, quantity, weight, isPerishable)));
+				shoppingCart.add(new Grocery(name, price, quantity, weight, isPerishable));
 			}
 			else if (category.equalsIgnoreCase("electronics") == true)
 			{
@@ -445,11 +434,11 @@ public class A3Driver
 				{
 					isFragile = true;
 				}
-				shoppingCart.add(new Item(name, price, quantity, weight, isFragile, state)));
+				shoppingCart.add(new Electronics(name, price, quantity, weight, isFragile, state));
 			}
 			else if (category.equalsIgnoreCase("clothing") == true)
 			{
-				shoppingCart.add(new Item(name, price, quantity, weight)));
+				shoppingCart.add(new Item(name, price, quantity, weight));
 			}
 		}
 		else
@@ -459,7 +448,7 @@ public class A3Driver
 			while (index < size)
 			{
 				Item temp = shoppingCart.get(index);
-				String tempName = temp.getName;
+				String tempName = temp.getName();
 				int result = name.compareTo(tempName);
 				if (result < 0)	// item should be placed before
 				{
@@ -476,7 +465,7 @@ public class A3Driver
 					{
 						isPerishable = true;
 					}
-					shoppingCart.add(new Item(name, price, quantity, weight, isPerishable)));
+					shoppingCart.add(new Grocery(name, price, quantity, weight, isPerishable));
 				}
 				else if (category.equalsIgnoreCase("electronics") == true)
 				{
@@ -486,11 +475,11 @@ public class A3Driver
 					{
 						isFragile = true;
 					}
-					shoppingCart.add(new Item(name, price, quantity, weight, isFragile, state)));
+					shoppingCart.add(new Electronics(name, price, quantity, weight, isFragile, state));
 				}
 				else if (category.equalsIgnoreCase("clothing") == true)
 				{
-					shoppingCart.add(new Item(name, price, quantity, weight)));
+					shoppingCart.add(new Item(name, price, quantity, weight));
 				}
 			}
 			else
@@ -502,7 +491,7 @@ public class A3Driver
 					{
 						isPerishable = true;
 					}
-					shoppingCart.add(index, new Item(name, price, quantity, weight, isPerishable)));
+					shoppingCart.add(index, new Grocery(name, price, quantity, weight, isPerishable));
 				}
 				else if (category.equalsIgnoreCase("electronics") == true)
 				{
@@ -512,24 +501,13 @@ public class A3Driver
 					{
 						isFragile = true;
 					}
-					shoppingCart.add(index, new Item(name, price, quantity, weight, isFragile, state)));
+					shoppingCart.add(index, new Electronics(name, price, quantity, weight, isFragile, state));
 				}
 				else if (category.equalsIgnoreCase("clothing") == true)
 				{
-					shoppingCart.add(index, new Item(name, price, quantity, weight)));
+					shoppingCart.add(index, new Item(name, price, quantity, weight));
 				}
 			}
-		}
-	}
-
-	public void extra(String input, ArrayList<Item> shoppingCart)
-	{
-		Iterator<Item> i = shoppingCart.iterator();
-		while (i.hasNext()) 
-		{
-			Item temp = i.next();
-			temp.calculatePrice(); 
-			temp.printItemAttributes();
 		}
 	}
 }
