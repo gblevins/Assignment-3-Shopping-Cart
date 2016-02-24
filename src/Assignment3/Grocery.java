@@ -2,6 +2,7 @@ package Assignment3;
 
 public class Grocery extends Item {
 // variables
+	// is the item perishable?
 	protected boolean perishable;
 
 // constructor
@@ -15,6 +16,7 @@ public class Grocery extends Item {
 	}
 
 // operational methods, some are overrides of the superclass
+	// calculates total price of item, if perishable requires premium shipping
 	public float calculatePrice () 
 	{
 		float final_price = 0;
@@ -33,6 +35,7 @@ public class Grocery extends Item {
 		return final_price;
 	}
 
+	// print each of the attributes of the item
 	public void printItemAttributes () 
 	{
 		System.out.println("Name: " + name);

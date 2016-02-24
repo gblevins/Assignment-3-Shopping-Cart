@@ -3,8 +3,12 @@ package Assignment3;
 public class Electronics extends Item 
 {
 // variables
+	// is the item fragile?
 	protected boolean fragile;
+	
+	// what state is the item shipping to?
 	protected String state;
+	
 // constructor
 	public Electronics(String itemName, float itemPrice, int itemQuantity, int itemWeight, boolean itemFragile, String itemState)
 	{
@@ -17,6 +21,7 @@ public class Electronics extends Item
 	}
 
 // operational methods, some are overrides of superclass methods
+	// calculate the total price of the item, if fragile requires premium shipping, if from certain states requires tax
 	public float calculatePrice () 
 	{
 		float final_price = 0;
@@ -39,7 +44,8 @@ public class Electronics extends Item
 		}
 		return final_price;
 	}
-	
+
+	// checks if the state provided has tax
 	public boolean hasTax(String stateName)
 	{
 		//must check if this is a valid state name
@@ -54,6 +60,7 @@ public class Electronics extends Item
 		}
 	}
 	
+	// prints the items attributes
 	public void printItemAttributes () 
 	{
 		System.out.println("Name: " + name);

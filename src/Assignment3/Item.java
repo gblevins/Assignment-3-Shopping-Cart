@@ -3,29 +3,20 @@ package Assignment3;
 public class Item 
 {
 // variables
+	// name of the item
 	protected String name;
+	
+	// price of each item
 	protected float price;
+	
+	// number of items
 	protected int quantity;
+	
+	// weight of each item
 	protected int weight;
-
-// constructors
-	public Item()
-	{
-		name = "";
-		price = 0;
-		quantity = 0;
-		weight = 0;
-	}
-
-	public Item(String itemName, float itemPrice, int itemQuantity, int itemWeight)
-	{
-		name = itemName;
-		price = itemPrice;
-		quantity = itemQuantity;
-		weight = itemWeight;
-	}
 	
 // operational methods
+	// calculate the total price of the item
 	public float calculatePrice () 
 	{
 		float final_price = 0;
@@ -36,6 +27,7 @@ public class Item
 		return final_price;
 	}
 
+	// print the attributes of the item
 	public void printItemAttributes () 
 	{
 		System.out.println("Name: " + name);
@@ -45,16 +37,19 @@ public class Item
 	}
 	
 // get and sets
+	// get the item name string
 	public String getName()
 	{
 		return name;
 	}
 	
+	// get the item quantity
 	public int getQuantity()
 	{
 		return quantity;
 	}
 	
+	// set the item quantity
 	public void setQuantity(int value)
 	{
 		quantity = value;
