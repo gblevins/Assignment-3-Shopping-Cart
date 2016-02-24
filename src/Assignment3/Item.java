@@ -16,7 +16,12 @@ public class Item
 	protected int weight;
 	
 // operational methods
-	// calculate the total price of the item
+	/******************************************************************************
+	* Method Name: calculatePrice                            				     *
+	* Purpose: Calculates the total price of an item including tax and shipping  * 			
+	* and returns it								    						 *
+	* Returns: The total price of the item                                       *
+	******************************************************************************/
 	public float calculatePrice () 
 	{
 		float final_price = 0;
@@ -27,7 +32,11 @@ public class Item
 		return final_price;
 	}
 
-	// print the attributes of the item
+	/******************************************************************************
+	* Method Name: printItemAttributes                             				  *
+	* Purpose: Prints out the attributes of item to the console					  *
+	* Returns: None				                                                  *
+	******************************************************************************/
 	public void printItemAttributes () 
 	{
 		System.out.println("Name: " + name);
@@ -36,20 +45,33 @@ public class Item
 		System.out.println("Weight: " + weight);
 	}
 	
-// get and sets
-	// get the item name string
+// getters and setters
+	
+	/******************************************************************************
+	* Method Name: getName                                        				  *
+	* Purpose: Returns name of the item											  *
+	* Returns: Name of the item                                                   *
+	******************************************************************************/
 	public String getName()
 	{
 		return name;
 	}
 	
-	// get the item quantity
+	/******************************************************************************
+	* Method Name: getQuantity                                          		  *
+	* Purpose: Returns the quantity value of an item	 						  *
+	* Returns: Quantity of the item                                               *
+	******************************************************************************/
 	public int getQuantity()
 	{
 		return quantity;
 	}
 	
-	// set the item quantity
+	/******************************************************************************
+	* Method Name: setQuantity                                          		  *
+	* Purpose: Sets the quantity of an item to a new value 						  *
+	* Returns: None                                                               *
+	******************************************************************************/
 	public void setQuantity(int value)
 	{
 		quantity = value;

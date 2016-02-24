@@ -16,7 +16,12 @@ public class Grocery extends Item {
 	}
 
 // operational methods, some are overrides of the superclass
-	// calculates total price of item, if perishable requires premium shipping
+	/******************************************************************************
+	* Method Name: calculatePrice                            				     *
+	* Purpose: Calculates the total price of an item including tax and shipping  * 			
+	* and returns it								    						 *
+	* Returns: The total price of the item                                       *
+	******************************************************************************/
 	public float calculatePrice () 
 	{
 		float final_price = 0;
@@ -35,7 +40,11 @@ public class Grocery extends Item {
 		return final_price;
 	}
 
-	// print each of the attributes of the item
+	/******************************************************************************
+	* Method Name: printItemAttributes                             				  *
+	* Purpose: Prints out the attributes of item to the console					  *
+	* Returns: None				                                                  *
+	******************************************************************************/
 	public void printItemAttributes () 
 	{
 		System.out.println("Name: " + name);
