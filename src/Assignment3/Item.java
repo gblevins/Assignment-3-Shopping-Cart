@@ -45,8 +45,7 @@ public class Item
 		System.out.println("Weight: " + weight);
 	}
 	
-// getters and setters
-	
+// getters and setters	
 	/******************************************************************************
 	* Method Name: getName                                        				  *
 	* Purpose: Returns name of the item											  *

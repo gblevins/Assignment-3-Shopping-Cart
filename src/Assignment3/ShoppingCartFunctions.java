@@ -63,7 +63,7 @@ public class ShoppingCartFunctions
 		}
 		if (found == false)
 		{
-			System.out.println("No items named " + name + " found.");
+			System.err.println("No items named " + name + " found.");
 		}
 		else 
 		{
@@ -97,7 +97,7 @@ public class ShoppingCartFunctions
 		}
 		if (itemFound == false)
 		{
-			System.out.println("No items named " + name + " found.");
+			System.err.println("No items named " + name + " found.");
 		}
 		else 
 		{
@@ -129,7 +129,7 @@ public class ShoppingCartFunctions
 		}
 		if (itemFound == false)
 		{
-			System.out.println("No items named " + name + " found.");
+			System.err.println("No items named " + name + " found.");
 		}
 		else 
 		{
@@ -172,21 +172,28 @@ public class ShoppingCartFunctions
 			}
 			else
 			{
-				insertAtIndexOfCart(shoppingCart.size(), input, shoppingCart);
+				insertAtIndexOfCart(index, input, shoppingCart);
 			}
 		}
 	}
 	
+	/******************************************************************************
+	* Method Name: insertAtIndexOfCart                                            *
+	* Purpose: Inserts an item into the shopping cart at the specified index.     *
+	* Returns: None                                                               *
+	******************************************************************************/
 	public static void insertAtIndexOfCart(int index, String input, ArrayList<Item> shoppingCart)
 	{
 		String operands[] = input.split("\\s+");
 		String category = new String(operands[1]);
 		String name = new String(operands[2]); // items can have the same name and different price
 		
-		Float priceInput = Float.parseFloat(operands[3]);
-		int roundPrice = (int) (priceInput * 100);
-		Float price = (float) roundPrice / 100;
-		if (price.compareTo(priceInput) != 0)
+		Double priceInput = Double.parseDouble(operands[3]);
+		Integer roundPrice = (int) (priceInput * 100);
+		Double price = (double) roundPrice / 100;
+		Float priceFloat = price.floatValue();
+		Float inputPriceFloat = priceInput.floatValue();
+		if (inputPriceFloat.compareTo(priceFloat) != 0)
 		{
 			System.err.println("Price of the item truncated.");
 		}
@@ -198,7 +205,7 @@ public class ShoppingCartFunctions
 		Float test2 = weight.floatValue();
 		if (floatWeight.compareTo(test2) != 0)
 		{
-			System.err.println("Weight of the item rounded down.");
+			System.err.println("Weight of the item truncated.");
 		}
 		
 		if (category.equalsIgnoreCase("groceries") == true)
@@ -208,7 +215,7 @@ public class ShoppingCartFunctions
 			{
 				isPerishable = true;
 			}
-			shoppingCart.add(index, new Grocery(name, price, quantity, weight, isPerishable));
+			shoppingCart.add(index, new Grocery(name, priceFloat, quantity, weight, isPerishable));
 		}
 		else if (category.equalsIgnoreCase("electronics") == true)
 		{
@@ -218,11 +225,11 @@ public class ShoppingCartFunctions
 			{
 				isFragile = true;
 			}
-			shoppingCart.add(index, new Electronics(name, price, quantity, weight, isFragile, state.toUpperCase()));
+			shoppingCart.add(index, new Electronics(name, priceFloat, quantity, weight, isFragile, state.toUpperCase()));
 		}
 		else if (category.equalsIgnoreCase("clothing") == true)
 		{
-			shoppingCart.add(index, new Clothing(name, price, quantity, weight));
+			shoppingCart.add(index, new Clothing(name, priceFloat, quantity, weight));
 		}
 	}
 }

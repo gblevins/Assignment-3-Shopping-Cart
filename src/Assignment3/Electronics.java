@@ -21,7 +21,6 @@ public class Electronics extends Item
 	}
 
 // operational methods, some are overrides of superclass methods
-	// calculate the total price of the item, if fragile requires premium shipping, if from certain states requires tax
 	/******************************************************************************
 	* Method Name: calculatePrice                            				     *
 	* Purpose: Calculates the total price of an item including tax and shipping  * 			
@@ -58,7 +57,6 @@ public class Electronics extends Item
 	******************************************************************************/
 	public boolean hasTax(String stateName)
 	{
-		//must check if this is a valid state name
 		if (stateName.equals("TX") || stateName.equals("NM") || stateName.equals("VA") ||
 				stateName.equals("AZ") || stateName.equals("AK"))
 		{

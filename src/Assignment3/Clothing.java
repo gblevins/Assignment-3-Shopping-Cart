@@ -3,8 +3,7 @@ package Assignment3;
 public class Clothing extends Item 
 {
 // same as Item class
-// constructor
-	
+	// constructor
 	public Clothing(String itemName, float itemPrice, int itemQuantity, int itemWeight)
 	{
 		name = itemName;

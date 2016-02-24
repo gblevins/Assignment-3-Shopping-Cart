@@ -42,7 +42,12 @@ public class errorHandling
 			return false;
 		}
 	}
-		
+	
+	/******************************************************************************
+	* Method Name: isValidInsert                                                  *
+	* Purpose: Checks if the customer's insert input is valid.                    *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidInsert(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -65,7 +70,12 @@ public class errorHandling
 			return false;
 		}
 	}
-			
+
+	/******************************************************************************
+	* Method Name: isValidGroceriesInsert                                         *
+	* Purpose: Checks if the customer's grocery insert is valid.                  *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidGroceriesInsert(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -84,6 +94,11 @@ public class errorHandling
 		return true;
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidElectronicsInsert                                       *
+	* Purpose: Checks if the customer's electronics insert input is valid.        *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidElectronicsInsert(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -113,6 +128,11 @@ public class errorHandling
 		return true;
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidClothingInsert                                          *
+	* Purpose: Checks if the customer's clothing insert input is valid.           *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidClothingInsert(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -126,6 +146,11 @@ public class errorHandling
 		return true;
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidPrice                                                   *
+	* Purpose: Checks if the customer's price input is valid.                     *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidPrice(String priceInput)
 	{
 		float price;
@@ -145,6 +170,11 @@ public class errorHandling
 		return true;
 	}
 
+	/******************************************************************************
+	* Method Name: isValidQuantity                                                *
+	* Purpose: Checks if the customer's quantity input is valid.                  *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidQuantity(String quantityInput)
 	{
 		Float quantity;
@@ -171,6 +201,11 @@ public class errorHandling
 		return true;
 	}
 
+	/******************************************************************************
+	* Method Name: isValidWeight                                                  *
+	* Purpose: Checks if the customer's weight input is valid.                    *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidWeight(String weightInput)
 	{
 		float weight;
@@ -190,6 +225,11 @@ public class errorHandling
 		return true;
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidSearchorDelete                                          *
+	* Purpose: Checks if the customer's search or delete input is valid.          *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidSearchorDelete(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -204,6 +244,11 @@ public class errorHandling
 		}
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidUpdate                                                  *
+	* Purpose: Checks if the customer's update input is valid.                    *
+	* Returns: boolean, returns true if the input is valid                        *
+	******************************************************************************/
 	public static boolean isValidUpdate(String input)
 	{
 		String operands[] = input.split("\\s+");
@@ -217,6 +262,11 @@ public class errorHandling
 		return true;
 	}
 	
+	/******************************************************************************
+	* Method Name: isValidPrint                                                   *
+	* Purpose: Checks if the customer's input is valid.                           *
+	* Returns: boolean, returns true if print the input is valid                  *
+	******************************************************************************/
 	public static boolean isValidPrint(String input)
 	{
 		String operands[] = input.split("\\s+");
