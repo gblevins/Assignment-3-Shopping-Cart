@@ -32,7 +32,7 @@ public class ShoppingCartFunctions
 			float totalItemPrice = temp.calculatePrice();
 			totalPrice = totalPrice + totalItemPrice;
 			temp.printItemAttributes();
-			System.out.println("The total price for this item is: " + Float.toString(totalItemPrice));
+			System.out.println("The total price for this item is: " + Float.toString(totalItemPrice) + "\n");
 		}
 		System.out.println("The total price for the shopping cart is: " + Float.toString(totalPrice));
 	}
@@ -159,7 +159,7 @@ public class ShoppingCartFunctions
 			{
 				Item temp = shoppingCart.get(index);
 				String tempName = temp.getName();
-				int result = name.compareTo(tempName);
+				int result = (name.toLowerCase()).compareTo(tempName.toLowerCase());
 				if (result < 0)	// item should be placed before
 				{
 					break;

@@ -1,8 +1,14 @@
 print
 8.01
 
+ 
 insert clothing shirt 20.50 1 1
 print
 insert electronics PS3 300.33 1 8.5 F TX
 print
- 
+insert groceries banana 5.111 4 2.2 P
+print
+insert electronics 1 5.2 1.0 5.2 NF AR
+print
+insert electronics ps3 300.33 1 8.5 F TX
+print
